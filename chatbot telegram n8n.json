@@ -1,0 +1,378 @@
+{
+  "name": "Chatbot Telegram n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -272,
+        -448
+      ],
+      "id": "144aa501-c71d-47e6-9f89-59a41b0395b3",
+      "name": "Telegram Trigger",
+      "webhookId": "cbe2a372-4ae6-494d-a4ed-ca6d1f784aae",
+      "credentials": {
+        "telegramApi": {
+          "id": "6ul71ND9g0Efe7r1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "Nosso atendimento funciona das 8h às 18h.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        -208
+      ],
+      "id": "9ad8b7b0-b9ea-4b4c-bed9-ca341964a802",
+      "name": "Send a text message",
+      "webhookId": "cce48598-a68c-425d-b5be-fb0619a08785",
+      "credentials": {
+        "telegramApi": {
+          "id": "6ul71ND9g0Efe7r1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "faad58d2-0545-4d79-9cfe-a44bbcc1bb09",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "matrícula",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -240,
+        16
+      ],
+      "id": "f55a9bc5-6d64-46cb-b24b-c9045febcf67",
+      "name": "if-matricula"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "As matrículas podem ser realizadas pelo portal do aluno ou presencialmente na secretaria acadêmica.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        16
+      ],
+      "id": "580e2440-c0cc-4f49-9b5f-689e2c7e11e5",
+      "name": "Send a text message1",
+      "webhookId": "60501c77-ecf2-491f-b2e3-0ad3c283f106",
+      "credentials": {
+        "telegramApi": {
+          "id": "6ul71ND9g0Efe7r1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "Para suporte técnico, entre em contato pelo e-mail: suporte@instituicaomazze.com",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        144
+      ],
+      "id": "db90867a-d293-4f1f-ab79-a5970b22a034",
+      "name": "Send a text message2",
+      "webhookId": "4c5b59f6-ccaf-43c1-b03a-f7d0ea47de8c",
+      "credentials": {
+        "telegramApi": {
+          "id": "6ul71ND9g0Efe7r1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "❌ Não entendi sua solicitação. Digite uma das seguintes opções: 1. horário  2.matrícula  3. suporte",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        288
+      ],
+      "id": "467c2c48-c1f2-4ee8-b662-8f70f1a1ed2e",
+      "name": "Send a text message3",
+      "webhookId": "25fca4c4-4ba6-4153-9935-905f49ac9b08",
+      "credentials": {
+        "telegramApi": {
+          "id": "6ul71ND9g0Efe7r1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "cfa87ee0-e151-448c-bbba-439f4ca395db",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "suporte",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -240,
+        160
+      ],
+      "id": "1349739d-ffc7-46e8-992c-d68e3dc3ba95",
+      "name": "if-suporte"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ba11df3b-e628-468f-93a4-7eef042c71c8",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "oi",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -256,
+        -256
+      ],
+      "id": "f47cb90b-2ac7-4d76-bd46-d0e5e83817ae",
+      "name": "if-oi"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "👋 Olá! Seja bem-vindo ao atendimento virtual.  Posso ajudar com:  1. horário  2. matrícula  3. suporte",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -64,
+        -352
+      ],
+      "id": "fd5fa3ab-fe3f-44c2-ac9c-d91173001ba9",
+      "name": "Send a text message4",
+      "webhookId": "dff6cc25-3b49-4754-afe1-f07fc08751e8",
+      "credentials": {
+        "telegramApi": {
+          "id": "6ul71ND9g0Efe7r1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "faad58d2-0545-4d79-9cfe-a44bbcc1bb09",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "horário",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -64,
+        -208
+      ],
+      "id": "6fb73d76-bddd-451e-9f13-736acb85d27b",
+      "name": "if-horario"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "if-oi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if-matricula": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "if-suporte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if-suporte": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if-oi": {
+      "main": [
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "if-horario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "if-horario": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "if-matricula",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b36faace-17af-43bc-8578-1b1948fe3d00",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "77d5bcca214856d2749c755187fcb69fbac2e41862448a2783ae79d1f5ed2795"
+  },
+  "id": "F4XiXdKp14peIgep",
+  "tags": []
+}
